@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from 'react-toastify';
-import { useSessionData } from '../../SessionDataContex';
+import { useSessionData } from '../../Context/SessionDataContext';
+
 
 const CreateUser = () => {
   const { setSessionData } = useSessionData();
@@ -13,13 +14,13 @@ const CreateUser = () => {
   const showToast = (data,successColor) => {
     toast.success(`${data.message}`, {
       position: 'top-right',
-      autoClose: 5000, // Close the notification after 3000 milliseconds (3 seconds)
+      autoClose: 5000, 
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       style: {
-        background: successColor || '#28a745', // You can customize the background color here
+        background: successColor || '#28a745',
       },
     });
   };
@@ -77,7 +78,7 @@ const CreateUser = () => {
         showToast(data , 'white')
         setForward(true);
         setValidateComplete(true);
-        setSessionData(data);
+        setSessionData(data.data.sessionId);
       } else {
         console.log(data);
         showToast(data ,'LightCoral' )
@@ -132,12 +133,14 @@ const CreateUser = () => {
           </form>
         )}
         {validateComplete && (
+          <>
           <Link
-            to="/App"
+            to="/"
             className="mt-3 flex justify-center bg-emerald-500 text-white font-bold py-2 px-4 rounded-md mt-2 hover:bg-emerald-300 transition ease-in-out duration-150"
           >
             ورود به برنامه
           </Link>
+          </>
         )}
       </div>
     </div>
