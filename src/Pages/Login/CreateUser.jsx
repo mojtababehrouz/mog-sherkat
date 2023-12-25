@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { toast } from 'react-toastify';
-import { useSessionData } from '../../Context/SessionDataContext';
-
+import { toast } from "react-toastify";
+import { useSessionData } from "../../Context/SessionDataContext";
 
 const CreateUser = () => {
   const { setSessionData } = useSessionData();
@@ -11,16 +10,16 @@ const CreateUser = () => {
   const [otp, setOtp] = useState("");
   const [validateComplete, setValidateComplete] = useState(false);
 
-  const showToast = (data,successColor) => {
+  const showToast = (data, successColor) => {
     toast.success(`${data.message}`, {
-      position: 'top-right',
-      autoClose: 5000, 
+      position: "top-right",
+      autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       style: {
-        background: successColor || '#28a745',
+        background: successColor || "#28a745",
       },
     });
   };
@@ -43,10 +42,10 @@ const CreateUser = () => {
       if (data.messageCode === "0") {
         console.log(data);
         setForward(true);
-        showToast(data , 'white')
+        showToast(data, "white");
       } else {
         console.log(data);
-        showToast(data , 'LightCoral')
+        showToast(data, "LightCoral");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -75,13 +74,13 @@ const CreateUser = () => {
       const data = await response.json();
       if (data.messageCode === "0") {
         console.log(data);
-        showToast(data , 'white')
+        showToast(data, "white");
         setForward(true);
         setValidateComplete(true);
         setSessionData(data.data.sessionId);
       } else {
         console.log(data);
-        showToast(data ,'LightCoral' )
+        showToast(data, "LightCoral");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -115,7 +114,10 @@ const CreateUser = () => {
           </button>
         </form>
         {forward && (
-          <form className="items-center flex flex-col mt-6" onSubmit={validateOTPHandler}>
+          <form
+            className="items-center flex flex-col mt-6"
+            onSubmit={validateOTPHandler}
+          >
             <input
               type="number"
               placeholder="کد تایید"
@@ -134,12 +136,12 @@ const CreateUser = () => {
         )}
         {validateComplete && (
           <>
-          <Link
-            to="/"
-            className="mt-3 flex justify-center bg-emerald-500 text-white font-bold py-2 px-4 rounded-md mt-2 hover:bg-emerald-300 transition ease-in-out duration-150"
-          >
-            ورود به برنامه
-          </Link>
+            <Link
+              to="/"
+              className="mt-3 flex justify-center bg-emerald-500 text-white font-bold py-2 px-4 rounded-md mt-2 hover:bg-emerald-300 transition ease-in-out duration-150"
+            >
+              ورود به برنامه
+            </Link>
           </>
         )}
       </div>
